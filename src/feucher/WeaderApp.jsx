@@ -4,36 +4,38 @@ import { IoPartlySunnyOutline } from "react-icons/io5";
 import { BsCloudRain } from "react-icons/bs";
 import { TfiLocationPin } from "react-icons/tfi";
 import { TbTemperatureCelsius } from "react-icons/tb";
-
+import WeatherCondition from "./WeatherCondition";
+import WeatherCondition2 from "./WeatherCondition2";
 import pic from "../image/bg.png";
-function WeaderApp() {
+function WeaderApp({ city, temp, humidity, speed }) {
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let d = new Date();
+  let dayName = days[d.getDay()];
+
   return (
     <>
-      <LuSunMedium className=" text-2xl" />
-      <IoPartlySunnyOutline />
-      <BsCloudRain />
-      <TfiLocationPin />
       <div className="flex h-[80vh] items-center w-[65%] justify-center">
         <div className="relative h-[80vh] flex items-center">
           <img className="w-[400px]" src={pic} alt="nooot" />
           <h1 className="absolute top-28 text-white text-5xl left-8 font-bold">
-            Tuesday
+            {dayName}
           </h1>
           <p className="absolute top-44 text-white text-2xl left-10">
-            20 jun 2022
+            {d.toUTCString()}
           </p>
-          <div className="flex gap-2 absolute top-56 text-white text-2xl left-12">
+          <div className="flex gap-2 absolute top-64 text-white text-2xl left-12">
             <TfiLocationPin className="text-white" />
-            <p className="mb-2">Biarritz fr</p>
+            <p className="mb-2">{city.name}</p>
           </div>
-          <div className="absolute  top-[440px] left-8 flex flex-col gap-1 text-3xl font-bold myfont text-white  ">
-            <LuSunMedium className="text-white text-[60px] self-center" />
-            <p className="flex">
-              29
-              <TbTemperatureCelsius />
-            </p>
-            <p>sunny</p>
-          </div>
+          <WeatherCondition temp={temp} humidity={humidity} />
         </div>
         <div className="bg-slate-800 h-[48vh]  flex flex-col gap-4 w-[45%] items-center p-4 font-bold myfonttext rounded-r-lg">
           <div className="w-[98%] flex flex-col gap-2 mt-4 text-white text-2xl">
@@ -43,22 +45,19 @@ function WeaderApp() {
             </div>
             <div className="flex justify-between">
               <p>HUMIDITY</p>
-              <p>42%</p>
+              <p>{humidity}%</p>
             </div>
             <div className="flex justify-between">
               <p>WIND</p>
-              <p>3km/h</p>
+              <p>{speed}km/h</p>
             </div>
           </div>
           <div className="flex mt-10">
-            <div className="flex flex-col gap-2 items-center bg-white rounded-lg p-4 text-2xl">
-              <LuSunMedium className="text-slate-900 text-[60px]" />
-              <p className="text-slate-900">Tue</p>
-              <p className="flex">
-                30
-                <TbTemperatureCelsius />
-              </p>
-            </div>
+            <WeatherCondition2
+              humidity={humidity}
+              temp={temp}
+              dayName={dayName}
+            />
             <div className="flex flex-col gap-2 items-center bg-gray-900 rounded-lg p-4 text-white text-2xl">
               <IoPartlySunnyOutline className="text-[60px]" />
               <p className="text-white">Wen</p>
